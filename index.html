@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#173F33">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Recipe Whisperer">
+<meta name="description" content="Find a recipe from what is already in your kitchen. Filter by cuisine and time, then scan live recipes and a community cookbook. Nothing is saved to your device.">
+<title>Recipe Whisperer — cook from what you have</title>
+<link rel="manifest" href="assets/manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+<link rel="icon" href="assets/icons/icon-192.png">
+<link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+
+<!-- ================= icon sprite ================= -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-basket" viewBox="0 0 24 24"><path d="M3 10h18l-2 10H5L3 10z"/><path d="M8 10l2-6M16 10l-2-6M9 14v3M15 14v3"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3"/><path d="M1 14h6M9 8h6M17 16h6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.3-4.3"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.4 2.5 3.6 5.5 3.6 9s-1.2 6.5-3.6 9c-2.4-2.5-3.6-5.5-3.6-9S9.6 5.5 12 3z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22V4.5z"/><path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 3h7v7M10 14 21 3"/><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></symbol>
+  <symbol id="i-pan" viewBox="0 0 24 24"><ellipse cx="10.5" cy="14" rx="7.5" ry="5.5"/><path d="M17.5 13.5H22"/><circle cx="10.5" cy="14" r="1.5"/></symbol>
+</svg>
+
+<!-- ================= top bar ================= -->
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <button class="brand" id="brandBtn" aria-label="Back to top">
+      <span class="brand-mark" aria-hidden="true">
+        <span class="steam s1"></span><span class="steam s2"></span><span class="steam s3"></span>
+        <span class="brand-plate"></span>
+      </span>
+      <span class="brand-text"><strong>Recipe Whisperer</strong><small>cook from what you have</small></span>
+    </button>
+    <nav class="top-actions" aria-label="App sections">
+      <button class="nav-btn" id="btnSources" type="button" aria-label="Sources and data policy">
+        <svg class="icon"><use href="#i-book"/></svg><span>Sources</span>
+      </button>
+      <button class="nav-btn" id="btnPantry" type="button" aria-label="Pantry basics">
+        <svg class="icon"><use href="#i-sliders"/></svg><span>Pantry</span>
+      </button>
+      <button class="icon-btn" id="btnList" type="button" aria-label="Session shopping list">
+        <svg class="icon"><use href="#i-basket"/></svg><span class="badge" id="listBadge" hidden></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="workspace">
+    <section class="panel tool-panel" aria-labelledby="toolTitle">
+      <div class="mood" aria-hidden="true">
+        <span class="mood-orb o1"></span>
+        <span class="mood-orb o2"></span>
+        <span class="mood-orb o3"></span>
+        <span class="mood-steam m1"></span>
+        <span class="mood-steam m2"></span>
+      </div>
+      <div class="panel-top">
+        <p class="eyebrow">Recipes from your kitchen</p>
+        <h1 id="toolTitle">Cook from what you have.</h1>
+        <p class="lede">Add the ingredients you have and get recipes right away. Dishes you can make now come first, followed by good options that need a few more things.</p>
+      </div>
+
+      <form class="ingredient-form" id="ingredientForm" autocomplete="off">
+        <label class="ingredient-field" for="ingredientInput">
+          <svg class="icon"><use href="#i-search"/></svg>
+          <input id="ingredientInput" type="text" placeholder="3 eggs, half an onion, canned tomatoes" enterkeyhint="done" autocapitalize="none" spellcheck="false">
+        </label>
+        <button class="btn primary" type="submit">Add</button>
+      </form>
+
+      <div class="chips" id="chips" aria-live="polite"></div>
+
+      <div class="quick-wrap">
+        <div class="quick-head"><span>Quick add</span><span class="hint">Tap what you have</span></div>
+        <div class="quick-row" id="quickAdd"></div>
+      </div>
+
+      <div class="filter-grid">
+        <fieldset class="filter-block">
+          <legend>Time available</legend>
+          <div class="seg" id="timeChips" role="group" aria-label="Time available"></div>
+        </fieldset>
+        <label class="filter-block">
+          <span>Cuisine</span>
+          <select id="cuisineSelect" aria-label="Filter by cuisine"></select>
+        </label>
+        <label class="filter-block">
+          <span>Diet</span>
+          <select id="dietSelect" aria-label="Filter by diet"></select>
+        </label>
+      </div>
+
+      <div class="tool-actions">
+        <button class="btn primary lg" id="scanBtn" type="button">Find recipes</button>
+        <button class="btn ghost" id="browseBtn" type="button">Browse picks</button>
+      </div>
+
+      <p class="scan-copy subtle" id="scanCopy" role="status" aria-live="polite"></p>
+  <div hidden aria-hidden="true"><span id="statCatalog"></span><span id="statCuisines"></span><span id="statScanned">0</span><span id="statPassed">0</span><span id="scanMeterFill"></span><div id="scoreParts"></div></div>
+
+      <button class="pantry-line" id="pantryLine" type="button">
+        <svg class="icon"><use href="#i-check"/></svg>
+        <span id="pantryText">Pantry basics assumed</span>
+        <span class="edit">Edit</span>
+      </button>
+    </section>
+  </div>
+
+  <!-- ================= results ================= -->
+  <section class="results" id="resultsSection" aria-labelledby="resultsTitle">
+    <div class="results-head">
+      <div>
+        <p class="eyebrow" id="resultsEyebrow">Results</p>
+        <h2 id="resultsTitle">Add ingredients to start.</h2>
+      </div>
+      <p class="results-meta" id="resultsMeta"></p>
+    </div>
+    <div class="cards" id="cards"></div>
+    <div class="empty" id="empty" hidden></div>
+    <div class="scan-more-wrap" id="scanMoreWrap" hidden>
+      <button class="btn ghost" id="scanMore" type="button">Check more recipes</button>
+    </div>
+  </section>
+</main>
+
+<footer class="foot wrap">
+  <span>Recipes from TheMealDB, Wikibooks Cookbook, based.cooking, and open-recipe-corpus. Publisher and video links open the original pages.</span>
+  <button type="button" id="footSources">Data sources &amp; credits</button>
+</footer>
+
+<!-- ================= recipe sheet ================= -->
+<div class="scrim" id="scrim"></div>
+<section class="sheet" id="recipeSheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" aria-hidden="true">
+  <div class="sheet-top">
+    <button class="icon-btn" id="sheetClose" type="button" aria-label="Close recipe"><svg class="icon"><use href="#i-left"/></svg></button>
+    <span class="sheet-kicker" id="sheetKicker">Recipe</span>
+    <a class="icon-btn" id="sheetSourceTop" href="#" target="_blank" rel="noopener noreferrer" aria-label="Open original source" hidden><svg class="icon"><use href="#i-external"/></svg></a>
+  </div>
+  <div class="sheet-scroll" id="sheetBody"></div>
+</section>
+
+<!-- ================= side sheet ================= -->
+<div class="scrim" id="sideScrim"></div>
+<section class="sheet side-sheet" id="sideSheet" role="dialog" aria-modal="true" aria-labelledby="sideTitle" aria-hidden="true">
+  <div class="sheet-top">
+    <button class="icon-btn" id="sideClose" type="button" aria-label="Close"><svg class="icon"><use href="#i-left"/></svg></button>
+    <span class="sheet-kicker" id="sideTitle">Shopping list</span>
+    <span class="icon-btn ghost" aria-hidden="true"></span>
+  </div>
+  <div class="sheet-scroll" id="sideBody"></div>
+</section>
+
+<!-- ================= cook mode ================= -->
+<div class="cook" id="cookOverlay" aria-hidden="true">
+  <div class="cook-top">
+    <button class="icon-btn" id="cookClose" type="button" aria-label="Exit cook mode"><svg class="icon"><use href="#i-x"/></svg></button>
+    <span class="cook-progress" id="cookProgress">Step 1 of 5</span>
+    <button class="icon-btn" id="cookIngBtn" type="button" aria-label="Show ingredients"><svg class="icon"><use href="#i-basket"/></svg></button>
+  </div>
+  <div class="cook-body">
+    <div class="cook-ingredients" id="cookIngredients" hidden></div>
+    <div class="cook-step-wrap">
+      <span class="cook-num" id="cookNum">01</span>
+      <p class="cook-step" id="cookStep"></p>
+      <button class="timer-btn big" id="cookTimer" type="button" hidden><svg class="icon"><use href="#i-clock"/></svg><span>Start timer</span></button>
+    </div>
+  </div>
+  <div class="cook-foot">
+    <button class="btn ghost-btn" id="cookPrev" type="button"><svg class="icon"><use href="#i-left"/></svg> Back</button>
+    <button class="btn primary" id="cookNext" type="button">Next <svg class="icon"><use href="#i-right"/></svg></button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<noscript><p class="wrap">This tool needs JavaScript to read the recipe catalog.</p></noscript>
+
+<script src="assets/data/cookbook-data.js"></script>
+<script src="assets/data/basedcooking-data.js"></script>
+<script src="assets/data/opencorpus-data.js"></script>
+<script src="src/data-core.js"></script>
+<script src="src/live-api.js"></script>
+<script src="src/app.js"></script>
+</body>
+</html>

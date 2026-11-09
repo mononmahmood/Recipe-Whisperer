@@ -1,0 +1,56 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# OS / editor junk
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.code-workspace
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build / test artifacts
+dist/
+build/
+coverage/
+.nyc_output/
+tests/shots-live/
+tests/shots-*/
+.tmp/
+tmp/
+
+# Data builder caches (downloaded source material, reproducible)
+.cookbook-cache/
+.basedcooking-cache/
+.opencorpus-cache/
+
+# Local packages / archives generated during work
+*.zip
+!legacy/*.zip
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
