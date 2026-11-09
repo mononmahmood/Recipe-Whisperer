@@ -1,0 +1,20 @@
+# dependencies / caches
+node_modules
+**/node_modules
+.cookbook-cache
+.basedcooking-cache
+.opencorpus-cache
+.tmp
+tmp
+
+# tests artifacts
+tests/shots-live
+tests/shots-*
+tests/node_modules
+
+# git
+.git
+
+# local archives
+*.zip
+!legacy/*.zip
